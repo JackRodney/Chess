@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -20,14 +21,61 @@ public class ChessBoard extends JFrame implements ActionListener{
         for(int y = 0; y<8;y++){
             for(int x = 0; x<8; x++){
 
-                board[x][y] = new ChessSquare(x, y, this);
+                if(y == 1){
+                    board[x][y] = new Pawn(x, y, this, 1);
+                }
+                else if(y == 6){
+                    board[x][y] = new Pawn(x,y,this,0);
+                }
+                else if(y == 0){
+                    if(x == 0 || x == 7){
+                        board[x][y] = new Rook(x,y,this,1);
+                    }
+
+                    else if(x== 1 || x ==6){
+                        board[x][y] = new Knight(x,y,this,1);
+                    }
+
+                    else if(x == 2 || x == 5){
+                        board[x][y] = new Bishop(x,y,this,1);
+                    }
+                    else if(x == 3){
+                        board[x][y] = new Queen(x,y,this,1);
+                    }
+                    else{
+                        board[x][y] = new King(x,y,this,1);
+                    }
+                }
+                else if(y == 7){
+                    if(x == 0 || x == 7){
+                        board[x][y] = new Rook(x,y,this,0);
+                    }
+
+                    else if(x== 1 || x ==6){
+                        board[x][y] = new Knight(x,y,this,0);
+                    }
+
+                    else if(x == 2 || x == 5){
+                        board[x][y] = new Bishop(x,y,this,0);
+                    }
+                    else if(x == 3){
+                        board[x][y] = new Queen(x,y,this,0);
+                    }
+                    else{
+                        board[x][y] = new King(x,y,this,0);
+                    }
+                }
+                else{
+                    board[x][y] = new ChessSquare(x, y, this);  
+                }
+
                 if((x+1) % 2 == 0 ^ (y+1) % 2 ==0){
-                    board[x][y].setBackground(Color.decode("#5A190B"));
+                        board[x][y].setBackground(Color.decode("#5A190B"));
                 }else{board[x][y].setBackground(Color.decode("#D1B57D"));}
                 
                 board[x][y].addActionListener(this);
                 boardPanel.add(board[x][y]);
-            }cd 
+            }
         }
 
         setVisible(true);
