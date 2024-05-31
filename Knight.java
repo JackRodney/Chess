@@ -13,7 +13,9 @@ public class Knight extends ChessPiece
 
     public void clicked()
     {
+        
         if (colour == cb.getTurn()) {
+            clearHighlights();
             highlightSquare(xLocation - 1, yLocation - 2);
             highlightSquare(xLocation - 1, yLocation + 2);
             highlightSquare(xLocation - 2, yLocation + 1);

@@ -18,6 +18,15 @@ public abstract class ChessPiece extends ChessSquare{
             
         }
     }
+
+    protected void clearHighlights(){
+        for(int y = 0; y < 8;y++){
+            for(int x = 0; x<8; x++){
+                if(cb.getSquareAt(x, y) instanceof ChessPiece){
+                }else{cb.getSquareAt(x, y).setImage(null);}
+            }
+        }
+    }
     
     public abstract void move();
 

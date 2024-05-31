@@ -13,7 +13,16 @@ public class King extends ChessPiece
     
     public void clicked()
     {
-
+        if(colour == cb.getTurn()){
+            clearHighlights();
+            for(int x = -1; x < 2;x++){
+                highlightSquare(xLocation + x, yLocation + 1);
+                highlightSquare(xLocation + x, yLocation - 1);
+            }
+            highlightSquare(xLocation - 1, yLocation);
+            highlightSquare(xLocation + 1, yLocation);
+        }
+        
     }
     
     public void move()
