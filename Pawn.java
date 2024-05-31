@@ -12,6 +12,16 @@ public class Pawn extends ChessPiece
 
     }
 
+    public void clicked()
+    {
+        if(colour == cb.getTurn()){
+            highlightSquare(xLocation, yLocation - 1);
+            if(yLocation == 6){
+                highlightSquare(xLocation, yLocation - 2);
+            }
+        }
+    }
+    
     public void move()
     {
 

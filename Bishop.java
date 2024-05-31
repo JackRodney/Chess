@@ -11,8 +11,17 @@ public class Bishop extends ChessPiece
 
     }
 
-    public void move(){
+    
+    public void clicked()
+    {
 
     }
+    
+    public void move()
+    {
+
+    }
+
+
     
 }

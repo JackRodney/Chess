@@ -3,7 +3,7 @@ import java.awt.Dimension;
 
 import javax.swing.*;
 
-public class ChessSquare extends JButton
+public  class ChessSquare extends JButton
 {
     protected ChessBoard cb;
     protected int xLocation;
@@ -27,6 +27,8 @@ public class ChessSquare extends JButton
         this.setIcon(new ImageIcon(image));
     }
 
-
+    public void clicked(){
+        
+    }
 
 }

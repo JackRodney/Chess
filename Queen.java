@@ -11,7 +11,14 @@ public class Queen extends ChessPiece
 
     }
 
-    public void move(){
+    
+    public void clicked()
+    {
+
+    }
+    
+    public void move()
+    {
 
     }
     

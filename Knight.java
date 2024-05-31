@@ -11,7 +11,24 @@ public class Knight extends ChessPiece
 
     }
 
-    public void move(){
+    public void clicked()
+    {
+        if (colour == cb.getTurn()) {
+            highlightSquare(xLocation - 1, yLocation - 2);
+            highlightSquare(xLocation - 1, yLocation + 2);
+            highlightSquare(xLocation - 2, yLocation + 1);
+            highlightSquare(xLocation - 2, yLocation - 1);
+            highlightSquare(xLocation + 1, yLocation - 2);
+            highlightSquare(xLocation + 1, yLocation + 2); 
+            highlightSquare(xLocation + 2, yLocation - 1);
+            highlightSquare(xLocation + 2, yLocation + 1);
+        }
+    }
+
+
+    
+    public void move()
+    {
 
     }
     

@@ -7,6 +7,7 @@ public class ChessBoard extends JFrame implements ActionListener{
     
     private JPanel boardPanel = new JPanel();
     private ChessSquare[][] board;
+    private int turn = 0;
 
     public ChessBoard(){
         super();
@@ -65,6 +66,9 @@ public class ChessBoard extends JFrame implements ActionListener{
                         board[x][y] = new King(x,y,this,0);
                     }
                 }
+                else if(x ==4 && y==4){
+                    board[x][y] = new Knight(x,y,this,0);
+                }
                 else{
                     board[x][y] = new ChessSquare(x, y, this);  
                 }
@@ -92,5 +96,15 @@ public class ChessBoard extends JFrame implements ActionListener{
     
     public void actionPerformed(ActionEvent e){
         
+        ChessSquare s = (ChessSquare)e.getSource();
+        s.clicked();
+    }
+
+    public void changeSides(){
+        turn = turn ^ 1;
+    }
+
+    public int getTurn(){
+        return(turn);
     }
 }

@@ -11,7 +11,13 @@ public class King extends ChessPiece
         }else{this.setImage("images/Black/King.png");}
     }
     
-    public void move(){
+    public void clicked()
+    {
+
+    }
+    
+    public void move()
+    {
        
     }
 }
