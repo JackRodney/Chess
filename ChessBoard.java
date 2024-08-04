@@ -22,6 +22,10 @@ public class ChessBoard extends JFrame implements ActionListener{
         for(int y = 0; y<8;y++){
             for(int x = 0; x<8; x++){
 
+                // if(x == 4 && y == 4){
+                //     board[x][y] = new King(x, y, this, 0);
+                // }
+                
                 if(y == 1){
                     board[x][y] = new Pawn(x, y, this, 1);
                 }

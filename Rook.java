@@ -13,14 +13,33 @@ public class Rook extends ChessPiece
 
     public void clicked()
     {
-        if(colour == cb.getTurn()){
+        if (colour == cb.getTurn()) {
             clearHighlights();
-            for (int x = 0; x < 8; x++) {
-                highlightSquare(x, yLocation);
+    
+       
+            for (int i = xLocation + 1; i < 8; i++) {
+                if (!highlightSquare(i, yLocation)) {
+                    break; 
+                }
             }
-
-            for (int y = 0; y < 8; y++) {
-                highlightSquare(xLocation, y);
+            
+            
+            for (int i = xLocation - 1; i >= 0; i--) {
+                if (!highlightSquare(i, yLocation)) {
+                    break; 
+                }
+            }
+    
+            for (int i = yLocation + 1; i < 8; i++) {
+                if (!highlightSquare(xLocation, i)) {
+                    break; 
+                }
+            }
+    
+            for (int i = yLocation - 1; i >= 0; i--) {
+                if (!highlightSquare(xLocation, i)) {
+                    break; 
+                }
             }
         }
     }

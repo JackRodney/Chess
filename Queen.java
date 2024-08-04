@@ -17,20 +17,56 @@ public class Queen extends ChessPiece
         if(colour == cb.getTurn()){
        
             clearHighlights();
-            for (int i = -Math.min(xLocation, yLocation); i < Math.min(8 - xLocation, 8 - yLocation); i++) {
-                highlightSquare(xLocation + i, yLocation + i);
-            }
-
-            for (int i = -Math.min(xLocation, 8 - yLocation - 1); i < Math.min(8 - xLocation, yLocation + 1); i++) {
-                highlightSquare(xLocation + i, yLocation - i);
-            }
-
-            for (int x = 0; x < 8; x++) {
-                highlightSquare(x, yLocation);
+            for (int i = 1; xLocation + i < 8 && yLocation + i < 8; i++) {
+                if (!highlightSquare(xLocation + i, yLocation + i)) {
+                    break; 
+                }
             }
     
-            for (int y = 0; y < 8; y++) {
-                highlightSquare(xLocation, y);
+            for (int i = 1; xLocation - i >= 0 && yLocation - i >= 0; i++) {
+                if (!highlightSquare(xLocation - i, yLocation - i)) {
+                    break; 
+                }
+            }
+    
+            
+            for (int i = 1; xLocation + i < 8 && yLocation - i >= 0; i++) {
+                if (!highlightSquare(xLocation + i, yLocation - i)) {
+                    break; 
+                }
+            }
+    
+            for (int i = 1; xLocation - i >= 0 && yLocation + i < 8; i++) {
+                if (!highlightSquare(xLocation - i, yLocation + i)) {
+                    break; 
+                }
+            }
+            
+            for (int i = xLocation + 1; i < 8; i++) {
+                if (!highlightSquare(i, yLocation)) {
+                    break; 
+                }
+            }
+            
+           
+            for (int i = xLocation - 1; i >= 0; i--) {
+                if (!highlightSquare(i, yLocation)) {
+                    break; 
+                }
+            }
+    
+        
+            for (int i = yLocation + 1; i < 8; i++) {
+                if (!highlightSquare(xLocation, i)) {
+                    break; 
+                }
+            }
+    
+            
+            for (int i = yLocation - 1; i >= 0; i--) {
+                if (!highlightSquare(xLocation, i)) {
+                    break; 
+                }
             }
         }
     }

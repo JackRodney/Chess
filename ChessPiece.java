@@ -10,13 +10,16 @@ public abstract class ChessPiece extends ChessSquare{
 
     }
 
-    protected void highlightSquare(int x, int y) {
-       
-        if (x >= 0 && x < 8 && y >= 0 && y < 8 ) {
-            if(cb.getSquareAt(x, y) instanceof ChessPiece){
-            }else{cb.getSquareAt(x, y).setImage("images/Select.png");}
-            
+    protected boolean highlightSquare(int x, int y) {
+        if (x >= 0 && x < 8 && y >= 0 && y < 8) {
+            if (cb.getSquareAt(x, y) instanceof ChessPiece) {
+                return false; 
+            } else {
+                cb.getSquareAt(x, y).setImage("images/Select.png");
+                return true; 
+            }
         }
+        return false; 
     }
 
     protected void clearHighlights(){

@@ -12,21 +12,38 @@ public class Bishop extends ChessPiece
     }
 
     
-    public void clicked()
-    {
-        if(colour == cb.getTurn()){
-
+    public void clicked() {
+        if (colour == cb.getTurn()) {
             clearHighlights();
-            for (int i = -Math.min(xLocation, yLocation); i < Math.min(8 - xLocation, 8 - yLocation); i++) {
-                highlightSquare(xLocation + i, yLocation + i);
+    
+            
+            for (int i = 1; xLocation + i < 8 && yLocation + i < 8; i++) {
+                if (!highlightSquare(xLocation + i, yLocation + i)) {
+                    break; 
+                }
             }
-
-            for (int i = -Math.min(xLocation, 8 - yLocation - 1); i < Math.min(8 - xLocation, yLocation + 1); i++) {
-                highlightSquare(xLocation + i, yLocation - i);
+    
+            for (int i = 1; xLocation - i >= 0 && yLocation - i >= 0; i++) {
+                if (!highlightSquare(xLocation - i, yLocation - i)) {
+                    break; 
+                }
+            }
+    
+            
+            for (int i = 1; xLocation + i < 8 && yLocation - i >= 0; i++) {
+                if (!highlightSquare(xLocation + i, yLocation - i)) {
+                    break; 
+                }
+            }
+    
+            for (int i = 1; xLocation - i >= 0 && yLocation + i < 8; i++) {
+                if (!highlightSquare(xLocation - i, yLocation + i)) {
+                    break; 
+                }
             }
         }
-
     }
+    
     
     public void move()
     {
