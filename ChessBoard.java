@@ -94,18 +94,10 @@ public class ChessBoard extends JFrame implements ActionListener{
         int currentY = activePiece.getYPosition();
 
         activePiece.setPosition(x, y);
-    
-
-        // String pieceImagePath = "images/" + (activePiece.getColour() == 0 ? "White/" : "Black/") + activePiece.getType() + ".png";
-        // System.out.println(pieceImagePath);
-        // this.getSquareAt(x, y).setImage(pieceImagePath);
 
         board[x][y].setPiece(activePiece);
         board[currentX][currentY].setPiece(null);
 
-
-        this.getSquareAt(currentX, currentY).repaint();
-        this.getSquareAt(x,y).repaint();
     }
 
     protected void clearHighlights(){
@@ -127,17 +119,49 @@ public class ChessBoard extends JFrame implements ActionListener{
 
     public void changeSides(){
         turn = turn ^ 1;
+
+        ChessSquare[][] flippedBoard = new ChessSquare[8][8];
+
+        // Reverse the rows and columns and update the piece coordinates
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                // Calculate the new x and y positions for flipping
+                int newX = 7 - x;
+                int newY = 7 - y;
+    
+                // Swap the square positions
+                flippedBoard[newX][newY] = board[x][y];
+    
+                // Update the piece's coordinates if there is a piece on the square
+                ChessPiece piece = flippedBoard[newX][newY].getPiece();
+                if (piece != null) {
+                    piece.setPosition(newX, newY);
+                }
+            }
+        }
+    
+        // Update the board reference to the flipped board
+        board = flippedBoard;
+    
+        // Clear the board panel and re-add the squares in the new order
+        boardPanel.removeAll();
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                boardPanel.add(board[x][y]);
+            }
+        }
+
     }
 
-    public int getTurn(){
-        return(turn);
-    }
+    public int getTurn(){return(turn);}
 
-    public void setActivePiece(ChessPiece c){
-        this.activePiece = c;
-    }
+    public void setActivePiece(ChessPiece c){this.activePiece = c;}
 
-    public ChessPiece getActivePiece(){
-        return activePiece;
+    public ChessPiece getActivePiece(){return activePiece;}
+
+    public static void main(String args[])
+    {
+        new ChessBoard();
+        
     }
 }
