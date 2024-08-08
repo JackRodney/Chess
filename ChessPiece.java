@@ -1,37 +1,49 @@
-public abstract class ChessPiece extends ChessSquare{
+public abstract class ChessPiece {
     
+    protected int xLocation;
+    protected int yLocation;
+    protected ChessBoard cb;
     protected String type;
     protected int colour;
 
+
     public ChessPiece(int x, int y, ChessBoard board, int colour)
     {
-        super(x,y,board);
+        this.xLocation = x;
+        this.yLocation = y;
+        this.cb = board;
         this.colour = colour;
 
     }
 
     protected boolean highlightSquare(int x, int y) {
         if (x >= 0 && x < 8 && y >= 0 && y < 8) {
-            if (cb.getSquareAt(x, y) instanceof ChessPiece) {
+            if (cb.getSquareAt(x, y).getPiece() instanceof ChessPiece) {
                 return false; 
             } else {
                 cb.getSquareAt(x, y).setImage("images/Select.png");
-                return true; 
+                cb.getSquareAt(x, y).setSelectable(true);
+                return true;
             }
         }
         return false; 
     }
 
-    protected void clearHighlights(){
-        for(int y = 0; y < 8;y++){
-            for(int x = 0; x<8; x++){
-                if(cb.getSquareAt(x, y) instanceof ChessPiece){
-                }else{cb.getSquareAt(x, y).setImage(null);}
-            }
-        }
+
+    protected void setPosition(int x, int y){
+        this.xLocation = x;
+        this.yLocation = y;
     }
-    
-    public abstract void move();
+
+    protected int getXPosition(){return xLocation;}
+
+    protected int getYPosition(){return yLocation;}
+
+    protected String getType(){return type;}
+
+    protected int getColour(){return colour;}
+
+    protected abstract void pieceClicked();
 
 }
 

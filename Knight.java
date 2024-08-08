@@ -5,17 +5,18 @@ public class Knight extends ChessPiece
     public Knight(int x, int y, ChessBoard b, int colour)
     {
         super(x, y, b, colour);
-        if(colour == 0){
-            this.setImage("images/White/Knight.png");
-        }else{this.setImage("images/Black/Knight.png");}
+        // if(colour == 0){
+        //     this.setImage("images/White/Knight.png");
+        // }else{this.setImage("images/Black/Knight.png");}
 
     }
 
-    public void clicked()
+    public void pieceClicked()
     {
         
         if (colour == cb.getTurn()) {
-            clearHighlights();
+            cb.clearHighlights();
+            cb.setActivePiece(this);
             highlightSquare(xLocation - 1, yLocation - 2);
             highlightSquare(xLocation - 1, yLocation + 2);
             highlightSquare(xLocation - 2, yLocation + 1);
@@ -24,14 +25,11 @@ public class Knight extends ChessPiece
             highlightSquare(xLocation + 1, yLocation + 2); 
             highlightSquare(xLocation + 2, yLocation - 1);
             highlightSquare(xLocation + 2, yLocation + 1);
+
         }
     }
 
+    public String getType(){return type;}
 
-    
-    public void move()
-    {
-
-    }
     
 }

@@ -5,17 +5,17 @@ public class Rook extends ChessPiece
     public Rook(int x, int y, ChessBoard b, int colour)
     {
         super(x, y, b, colour);
-        if(colour == 0){
-            this.setImage("images/White/Rook.png");
-        }else{this.setImage("images/Black/Rook.png");}
+        // if(colour == 0){
+        //     this.setImage("images/White/Rook.png");
+        // }else{this.setImage("images/Black/Rook.png");}
 
     }
 
-    public void clicked()
+    public void pieceClicked()
     {
         if (colour == cb.getTurn()) {
-            clearHighlights();
-    
+            cb.clearHighlights();
+            cb.setActivePiece(this);
        
             for (int i = xLocation + 1; i < 8; i++) {
                 if (!highlightSquare(i, yLocation)) {
@@ -43,10 +43,6 @@ public class Rook extends ChessPiece
             }
         }
     }
-    
-    public void move()
-    {
-
-    }
-    
+   
+    public String getType(){return type;}
 }

@@ -6,15 +6,16 @@ public class King extends ChessPiece
     public King(int x, int y, ChessBoard board, int colour)
     {
         super(x,y,board,colour);
-        if(colour == 0){
-            this.setImage("images/White/King.png");
-        }else{this.setImage("images/Black/King.png");}
+        // if(colour == 0){
+        //     this.setImage("images/White/King.png");
+        // }else{this.setImage("images/Black/King.png");}
     }
     
-    public void clicked()
+    public void pieceClicked()
     {
         if(colour == cb.getTurn()){
-            clearHighlights();
+            cb.clearHighlights();
+            cb.setActivePiece(this);
             for(int x = -1; x < 2;x++){
                 highlightSquare(xLocation + x, yLocation + 1);
                 highlightSquare(xLocation + x, yLocation - 1);
@@ -24,9 +25,7 @@ public class King extends ChessPiece
         }
         
     }
-    
-    public void move()
-    {
-       
-    }
+
+    public String getType(){return type;}
+
 }

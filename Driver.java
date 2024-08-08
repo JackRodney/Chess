@@ -3,6 +3,5 @@ public class Driver{
     {
         ChessBoard cb = new ChessBoard();
         
-
     }
 }
