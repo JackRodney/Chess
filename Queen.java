@@ -27,7 +27,6 @@ public class Queen extends ChessPiece
                 }
             }
     
-            
             for (int i = 1; xLocation + i < 8 && yLocation - i >= 0; i++) {
                 if (!highlightSquare(xLocation + i, yLocation - i)) {
                     break; 

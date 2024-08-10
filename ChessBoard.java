@@ -104,8 +104,15 @@ public class ChessBoard extends JFrame implements ActionListener{
         for(int y = 0; y < 8;y++){
             for(int x = 0; x<8; x++){
                 this.getSquareAt(x, y).setSelectable(false);
+                this.getSquareAt(x, y).setTakeable(false);
+
                 if(this.getSquareAt(x, y).getPiece() instanceof ChessPiece){
                 }else{this.getSquareAt(x, y).setImage(null);}
+
+                Color colour = this.getSquareAt(x, y).getBackground();
+                String colourString = String.format("#%02x%02x%02x", colour.getRed(), colour.getGreen(), colour.getBlue()); 
+                if(colourString.equals("#8d726b")){this.getSquareAt(x,y).setBackground(Color.decode("#5a190b"));}
+                if(colourString.equals("#d2c5aa")){this.getSquareAt(x,y).setBackground(Color.decode("#d1b57d"));}
             }
         }
     }
@@ -122,17 +129,16 @@ public class ChessBoard extends JFrame implements ActionListener{
 
         ChessSquare[][] flippedBoard = new ChessSquare[8][8];
 
-        // Reverse the rows and columns and update the piece coordinates
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
-                // Calculate the new x and y positions for flipping
+
                 int newX = 7 - x;
                 int newY = 7 - y;
     
-                // Swap the square positions
+
                 flippedBoard[newX][newY] = board[x][y];
     
-                // Update the piece's coordinates if there is a piece on the square
+
                 ChessPiece piece = flippedBoard[newX][newY].getPiece();
                 if (piece != null) {
                     piece.setPosition(newX, newY);
@@ -140,10 +146,10 @@ public class ChessBoard extends JFrame implements ActionListener{
             }
         }
     
-        // Update the board reference to the flipped board
+
         board = flippedBoard;
     
-        // Clear the board panel and re-add the squares in the new order
+
         boardPanel.removeAll();
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
