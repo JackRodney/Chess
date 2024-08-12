@@ -8,6 +8,7 @@ public abstract class ChessPiece {
     protected ChessBoard cb;
     protected String type;
     protected int colour;
+    protected int move = 0;
 
 
     public ChessPiece(int x, int y, ChessBoard board, int colour)
@@ -23,13 +24,12 @@ public abstract class ChessPiece {
         if (x >= 0 && x < 8 && y >= 0 && y < 8) {
             cb.getSquareAt(x, y).setSelectable(true);
             if (cb.getSquareAt(x, y).getPiece() instanceof ChessPiece) {
-
+                
                 if(cb.getSquareAt(x,y).getPiece().getColour() != this.getColour()){
                     Color colour = cb.getSquareAt(x, y).getBackground();
                     String colourString = String.format("#%02x%02x%02x", colour.getRed(), colour.getGreen(), colour.getBlue()); 
                     if(colourString.equals("#5a190b")){cb.getSquareAt(x,y).setBackground(Color.decode("#8D726B"));}
                     if(colourString.equals("#d1b57d")){cb.getSquareAt(x,y).setBackground(Color.decode("#d2c5aa"));}
-                    cb.getSquareAt(x, y).setTakeable(true);
                 }
                 
                 return false; 

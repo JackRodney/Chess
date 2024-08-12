@@ -16,11 +16,29 @@ public class Pawn extends ChessPiece
             cb.clearHighlights();
             cb.setActivePiece(this);
             
-            if(highlightSquare(xLocation, yLocation - 1)){
-                if(yLocation == 6){
-                    highlightSquare(xLocation, yLocation - 2);
+           
+
+            if(!(cb.getSquareAt(xLocation, yLocation - 1).getPiece() instanceof ChessPiece)){
+                if(highlightSquare(xLocation, yLocation - 1)){
+                    if(yLocation == 6){
+                        if(!(cb.getSquareAt(xLocation, yLocation - 2).getPiece() instanceof ChessPiece)){
+                            highlightSquare(xLocation, yLocation - 2);
+                        }
+                    }
                 }
             }
+
+            if(cb.getSquareAt(xLocation - 1, yLocation - 1).getPiece() != null){
+                highlightSquare(xLocation - 1, yLocation -1);
+                
+            }
+
+            if(cb.getSquareAt(xLocation + 1, yLocation - 1).getPiece() != null){
+                highlightSquare(xLocation + 1, yLocation -1);
+                
+            }
+            
+
         }
     }
     

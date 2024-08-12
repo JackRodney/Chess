@@ -1,5 +1,4 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -9,6 +8,7 @@ public class ChessBoard extends JFrame implements ActionListener{
     private ChessSquare[][] board;
     private int turn = 0;
     private ChessPiece activePiece;
+
 
     public ChessBoard(){
         super();
@@ -104,7 +104,7 @@ public class ChessBoard extends JFrame implements ActionListener{
         for(int y = 0; y < 8;y++){
             for(int x = 0; x<8; x++){
                 this.getSquareAt(x, y).setSelectable(false);
-                this.getSquareAt(x, y).setTakeable(false);
+
 
                 if(this.getSquareAt(x, y).getPiece() instanceof ChessPiece){
                 }else{this.getSquareAt(x, y).setImage(null);}
@@ -164,6 +164,7 @@ public class ChessBoard extends JFrame implements ActionListener{
     public void setActivePiece(ChessPiece c){this.activePiece = c;}
 
     public ChessPiece getActivePiece(){return activePiece;}
+
 
     public static void main(String args[])
     {

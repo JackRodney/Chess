@@ -9,9 +9,9 @@ public  class ChessSquare extends JButton
     private int yLocation;
     private ChessPiece piece;
     private boolean selectable;
-    private boolean takeable;
 
-     
+
+   
     public ChessSquare(int x, int y, ChessBoard b)
     {
 
@@ -53,8 +53,7 @@ public  class ChessSquare extends JButton
                 cb.moveActivePiece(this.xLocation, this.yLocation);
                 cb.changeSides();
             }
-            System.out.println("SELECTABLE");
-            
+
             cb.clearHighlights();
             
         }
@@ -67,8 +66,5 @@ public  class ChessSquare extends JButton
 
     public void setSelectable(boolean bool){this.selectable = bool;}
 
-    public void setTakeable(boolean bool){this.takeable = bool;}
-
-   
 
 }
