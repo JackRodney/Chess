@@ -24,7 +24,6 @@ public abstract class ChessPiece {
         if (x >= 0 && x < 8 && y >= 0 && y < 8) {
             cb.getSquareAt(x, y).setSelectable(true);
             if (cb.getSquareAt(x, y).getPiece() instanceof ChessPiece) {
-                
                 if(cb.getSquareAt(x,y).getPiece().getColour() != this.getColour()){
                     Color colour = cb.getSquareAt(x, y).getBackground();
                     String colourString = String.format("#%02x%02x%02x", colour.getRed(), colour.getGreen(), colour.getBlue()); 
@@ -36,7 +35,7 @@ public abstract class ChessPiece {
 
             } else {
                 cb.getSquareAt(x, y).setImage("images/Select.png");
-                
+            
                 return true;
             }
             
@@ -57,6 +56,8 @@ public abstract class ChessPiece {
     protected String getType(){return type;}
 
     protected int getColour(){return colour;}
+
+    protected void incrementMove(){this.move ++;}
 
     protected abstract void pieceClicked();
 

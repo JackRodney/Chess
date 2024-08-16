@@ -10,6 +10,7 @@ public class ChessBoard extends JFrame implements ActionListener{
     private ChessPiece activePiece;
 
 
+
     public ChessBoard(){
         super();
         this.board = new ChessSquare[8][8];
@@ -90,6 +91,7 @@ public class ChessBoard extends JFrame implements ActionListener{
 
     public void moveActivePiece(int x, int y) {
 
+        
         int currentX = activePiece.getXPosition();
         int currentY = activePiece.getYPosition();
 
@@ -97,6 +99,17 @@ public class ChessBoard extends JFrame implements ActionListener{
 
         board[x][y].setPiece(activePiece);
         board[currentX][currentY].setPiece(null);
+        activePiece.incrementMove();
+
+        for(int yi = 0; yi < 8; yi++){
+            for(int xi = 0; xi < 8;xi++ ){
+                if(board[xi][yi].getPiece() instanceof King){
+                    ((King) board[xi][yi].getPiece()).ConnectionCheck();
+                }
+            }
+        }
+
+        
 
     }
 
