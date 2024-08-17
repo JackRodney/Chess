@@ -8,6 +8,7 @@ public class ChessBoard extends JFrame implements ActionListener{
     private ChessSquare[][] board;
     private int turn = 0;
     private ChessPiece activePiece;
+    private boolean check;
 
 
 
@@ -90,29 +91,54 @@ public class ChessBoard extends JFrame implements ActionListener{
 
 
     public void moveActivePiece(int x, int y) {
-
         
         int currentX = activePiece.getXPosition();
         int currentY = activePiece.getYPosition();
+        ChessPiece targetPiece = board[x][y].getPiece();  
+    
 
         activePiece.setPosition(x, y);
-
         board[x][y].setPiece(activePiece);
         board[currentX][currentY].setPiece(null);
         activePiece.incrementMove();
+        check = false;
+    
 
-        for(int yi = 0; yi < 8; yi++){
-            for(int xi = 0; xi < 8;xi++ ){
-                if(board[xi][yi].getPiece() instanceof King){
-                    ((King) board[xi][yi].getPiece()).ConnectionCheck();
+        King opponentKing = findKing(activePiece.getColour() ^ 1);
+        if (opponentKing.Check()) {
+            System.out.println("Check!");
+
+        }
+
+        King myKing = findKing(activePiece.getColour());
+        if (myKing.Check()) {
+
+            
+            activePiece.setPosition(currentX, currentY);
+            board[currentX][currentY].setPiece(activePiece);
+            board[x][y].setPiece(targetPiece);  
+            activePiece.decrementMove();
+            
+            check = true;
+            System.out.println("Move is illegal: King would be in check");
+            return;
+        }
+        
+    }
+    
+    private King findKing(int colour){
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                ChessPiece piece = board[x][y].getPiece();
+                if (piece instanceof King && piece.getColour() == colour) {
+                    return (King) piece;
                 }
             }
         }
-
-        
-
+        return null;
     }
 
+    
     protected void clearHighlights(){
         for(int y = 0; y < 8;y++){
             for(int x = 0; x<8; x++){
@@ -138,38 +164,40 @@ public class ChessBoard extends JFrame implements ActionListener{
     }
 
     public void changeSides(){
-        turn = turn ^ 1;
+        
+        System.out.println(check);
+        if(!check){
 
-        ChessSquare[][] flippedBoard = new ChessSquare[8][8];
+            ChessSquare[][] flippedBoard = new ChessSquare[8][8];
 
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                for (int x = 0; x < 8; x++) {
+                    int newX = 7 - x;
+                    int newY = 7 - y;
+        
+                    flippedBoard[newX][newY] = board[x][y];
+        
+                    ChessPiece piece = flippedBoard[newX][newY].getPiece();
+                    if (piece != null) {
 
-                int newX = 7 - x;
-                int newY = 7 - y;
-    
-
-                flippedBoard[newX][newY] = board[x][y];
-    
-
-                ChessPiece piece = flippedBoard[newX][newY].getPiece();
-                if (piece != null) {
-                    piece.setPosition(newX, newY);
+                        piece.setPosition(newX, newY);
+                    }
                 }
             }
-        }
-    
-
-        board = flippedBoard;
-    
-
-        boardPanel.removeAll();
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                boardPanel.add(board[x][y]);
+        
+            board = flippedBoard;
+        
+            boardPanel.removeAll();
+            for (int y = 0; y < 8; y++) {
+                for (int x = 0; x < 8; x++) {
+                    boardPanel.add(board[x][y]);
+                }
             }
+        
+            turn = turn ^ 1;
+            boardPanel.revalidate();
+            boardPanel.repaint();
         }
-
     }
 
     public int getTurn(){return(turn);}

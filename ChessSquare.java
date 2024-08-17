@@ -44,16 +44,17 @@ public  class ChessSquare extends JButton
         
         if(selectable){
             
-            if(cb.getTurn() == 1){
-
+            if(cb.getActivePiece().getColour() == 1){
+               
                 cb.changeSides();
-                cb.moveActivePiece(this.xLocation, this.yLocation);
+                cb.moveActivePiece(xLocation, yLocation);
             }
             else{
-                cb.moveActivePiece(this.xLocation, this.yLocation);
+                cb.moveActivePiece(xLocation, yLocation);
                 cb.changeSides();
             }
 
+            
             cb.clearHighlights();
             
         }

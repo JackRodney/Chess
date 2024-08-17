@@ -59,6 +59,8 @@ public abstract class ChessPiece {
 
     protected void incrementMove(){this.move ++;}
 
+    protected void decrementMove(){this.move --;}
+
     protected abstract void pieceClicked();
 
 }
