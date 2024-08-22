@@ -97,8 +97,15 @@ public class ChessBoard extends JFrame implements ActionListener{
         ChessPiece targetPiece = board[x][y].getPiece();  
     
 
-        activePiece.setPosition(x, y);
-        board[x][y].setPiece(activePiece);
+        if(turn == 1){
+            activePiece.setPosition(7-x, 7-y);
+            board[7-x][7-y].setPiece(activePiece);
+        }
+        else{
+            activePiece.setPosition(x, y);
+            board[x][y].setPiece(activePiece);
+        }
+        
         board[currentX][currentY].setPiece(null);
         activePiece.incrementMove();
         check = false;
@@ -116,13 +123,19 @@ public class ChessBoard extends JFrame implements ActionListener{
             
             activePiece.setPosition(currentX, currentY);
             board[currentX][currentY].setPiece(activePiece);
-            board[x][y].setPiece(targetPiece);  
+            if(turn == 0){
+                board[x][y].setPiece(targetPiece);
+            }
+            else{
+                board[7-x][7-y].setPiece(targetPiece);  
+            }
             activePiece.decrementMove();
             
             check = true;
             System.out.println("Move is illegal: King would be in check");
             return;
         }
+        
         
     }
     
