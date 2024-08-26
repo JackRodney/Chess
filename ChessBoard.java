@@ -10,8 +10,6 @@ public class ChessBoard extends JFrame implements ActionListener{
     private ChessPiece activePiece;
     private boolean check;
 
-
-
     public ChessBoard(){
         super();
         this.board = new ChessSquare[8][8];
@@ -21,6 +19,7 @@ public class ChessBoard extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         boardPanel.setLayout(new GridLayout(8,8));
+
 
         for(int y = 0; y<8;y++){
             for(int x = 0; x<8; x++){
@@ -89,54 +88,47 @@ public class ChessBoard extends JFrame implements ActionListener{
 		return board[x][y];
 	}
 
+    public boolean moveActivePiece(int x, int y) {
 
-    public void moveActivePiece(int x, int y) {
-        
         int currentX = activePiece.getXPosition();
         int currentY = activePiece.getYPosition();
-        ChessPiece targetPiece = board[x][y].getPiece();  
     
-
-        if(turn == 1){
-            activePiece.setPosition(7-x, 7-y);
-            board[7-x][7-y].setPiece(activePiece);
-        }
-        else{
-            activePiece.setPosition(x, y);
-            board[x][y].setPiece(activePiece);
-        }
+        int adjustedX = (turn == 1) ? 7 - x : x;
+        int adjustedY = (turn == 1) ? 7 - y : y;
         
+        ChessPiece targetPiece = board[adjustedX][adjustedY].getPiece(); 
+    
+        activePiece.setPosition(adjustedX, adjustedY);
+        board[adjustedX][adjustedY].setPiece(activePiece);
         board[currentX][currentY].setPiece(null);
         activePiece.incrementMove();
         check = false;
     
-
-        King opponentKing = findKing(activePiece.getColour() ^ 1);
-        if (opponentKing.Check()) {
-            System.out.println("Check!");
-
-        }
-
         King myKing = findKing(activePiece.getColour());
         if (myKing.Check()) {
 
-            
             activePiece.setPosition(currentX, currentY);
             board[currentX][currentY].setPiece(activePiece);
-            if(turn == 0){
-                board[x][y].setPiece(targetPiece);
-            }
-            else{
-                board[7-x][7-y].setPiece(targetPiece);  
-            }
+            board[adjustedX][adjustedY].setPiece(targetPiece);
             activePiece.decrementMove();
-            
+    
             check = true;
             System.out.println("Move is illegal: King would be in check");
-            return;
+            return false;
         }
-        
-        
+
+        King opponentKing = findKing(activePiece.getColour() ^ 1);
+                
+        if (opponentKing.Check()) {
+            System.out.println("Check!");
+    
+            if (opponentKing.checkMate()) {
+                System.out.println("CHECKMATE");
+
+            }
+        }
+    
+        return true;
     }
     
     private King findKing(int colour){
@@ -150,8 +142,7 @@ public class ChessBoard extends JFrame implements ActionListener{
         }
         return null;
     }
-
-    
+ 
     protected void clearHighlights(){
         for(int y = 0; y < 8;y++){
             for(int x = 0; x<8; x++){
@@ -168,7 +159,6 @@ public class ChessBoard extends JFrame implements ActionListener{
             }
         }
     }
-
     
     public void actionPerformed(ActionEvent e){
         
@@ -178,7 +168,6 @@ public class ChessBoard extends JFrame implements ActionListener{
 
     public void changeSides(){
         
-        System.out.println(check);
         if(!check){
 
             ChessSquare[][] flippedBoard = new ChessSquare[8][8];
@@ -218,8 +207,6 @@ public class ChessBoard extends JFrame implements ActionListener{
     public void setActivePiece(ChessPiece c){this.activePiece = c;}
 
     public ChessPiece getActivePiece(){return activePiece;}
-
-
     public static void main(String args[])
     {
         new ChessBoard();

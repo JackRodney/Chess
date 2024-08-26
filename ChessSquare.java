@@ -41,14 +41,14 @@ public  class ChessSquare extends JButton
         if(piece instanceof ChessPiece){
             piece.pieceClicked();
         }
+
+        System.out.println(" Square " + xLocation + " " + yLocation);
+
         
         if(selectable){
             
-
             cb.moveActivePiece(xLocation, yLocation);
             cb.changeSides();
-            
-
             cb.clearHighlights();
             
         }
