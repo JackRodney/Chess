@@ -1,4 +1,3 @@
-import java.util.concurrent.TimeUnit;
 
 public class King extends ChessPiece 
 {
@@ -45,13 +44,16 @@ public class King extends ChessPiece
             
             int checkFromX = this.getXPosition() + move[0];
             int checkFromY = this.getYPosition() + move[1];
-            int reverseX = this.getXPosition() - move[0];
-            int reverseY = this.getYPosition() - move[1];
-
+            int reverseX = checkFromX - move[0];
+            int reverseY = checkFromY - move[1];
+            ChessPiece tp = null;
+            
 
             if( checkFromX > 7 || checkFromX  < 0 || checkFromY  > 7 || checkFromY  < 0){
                 continue;
             }
+
+            tp = cb.getSquareAt(checkFromX, checkFromY).getPiece();
 
             if(cb.getSquareAt(checkFromX, checkFromY).getPiece() != null){
                 if(cb.getSquareAt(checkFromX, checkFromY).getPiece().getColour() != cb.getTurn()){
@@ -66,12 +68,21 @@ public class King extends ChessPiece
                 reverseY = 7 - reverseY;
             }
          
-            System.out.println(checkFromX+ " " + checkFromY);
+           
             if(cb.moveActivePiece(checkFromX,checkFromY)){
                 if (!Check()) {
+
+                    System.out.println(" NO CHECK FROM: "+checkFromX+ " " + checkFromY);
+                    cb.moveKing(this,reverseX,reverseY);
+                    if(cb.getTurn() == 0){
+                        cb.setBoard(checkFromX, checkFromY, tp);
+                    }
+                    else{
+                        cb.setBoard(7 - checkFromX, 7 - checkFromY, tp);
+                    }
                     return false;
                 }
-                cb.moveActivePiece(reverseX,reverseY);
+                cb.moveKing(this,reverseX,reverseY);
             }
             
         }

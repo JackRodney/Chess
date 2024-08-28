@@ -28,16 +28,19 @@ public class Pawn extends ChessPiece
                 }
             }
 
-            if(cb.getSquareAt(xLocation - 1, yLocation - 1).getPiece() != null){
-                highlightSquare(xLocation - 1, yLocation -1);
-                
-            }
-
-            if(cb.getSquareAt(xLocation + 1, yLocation - 1).getPiece() != null){
-                highlightSquare(xLocation + 1, yLocation -1);
-                
+            if(xLocation > 0){
+                if(cb.getSquareAt(xLocation - 1, yLocation - 1).getPiece() != null){
+                    highlightSquare(xLocation - 1, yLocation -1);
+                    
+                }
             }
             
+            if(xLocation < 7){
+                if(cb.getSquareAt(xLocation + 1, yLocation - 1).getPiece() != null){
+                    highlightSquare(xLocation + 1, yLocation -1);
+                    
+                }
+            }
 
         }
     }

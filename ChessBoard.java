@@ -103,6 +103,13 @@ public class ChessBoard extends JFrame implements ActionListener{
         board[currentX][currentY].setPiece(null);
         activePiece.incrementMove();
         check = false;
+
+
+        if (activePiece instanceof Pawn && activePiece.getYPosition() == 0) {
+        
+            board[adjustedX][adjustedY].setPiece(new Queen(adjustedX, adjustedY, this, activePiece.getColour()));
+    
+        }
     
         King myKing = findKing(activePiece.getColour());
         if (myKing.Check()) {
@@ -127,10 +134,26 @@ public class ChessBoard extends JFrame implements ActionListener{
 
             }
         }
-    
+        
         return true;
     }
     
+    public void moveKing(King king, int x, int y){
+        int currentX = king.getXPosition();
+        int currentY = king.getYPosition();
+
+        int adjustedX = (turn == 1) ? 7 - x : x;
+        int adjustedY = (turn == 1) ? 7 - y : y;
+        
+        activePiece.setPosition(adjustedX, adjustedY);
+        board[adjustedX][adjustedY].setPiece(activePiece);
+        board[currentX][currentY].setPiece(null);
+        activePiece.incrementMove();
+        check = false;
+
+
+    }
+
     private King findKing(int colour){
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -142,7 +165,7 @@ public class ChessBoard extends JFrame implements ActionListener{
         }
         return null;
     }
- 
+
     protected void clearHighlights(){
         for(int y = 0; y < 8;y++){
             for(int x = 0; x<8; x++){
@@ -207,6 +230,8 @@ public class ChessBoard extends JFrame implements ActionListener{
     public void setActivePiece(ChessPiece c){this.activePiece = c;}
 
     public ChessPiece getActivePiece(){return activePiece;}
+
+    public void setBoard(int x, int y, ChessPiece p){board[x][y].setPiece(p);}
     public static void main(String args[])
     {
         new ChessBoard();
