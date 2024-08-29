@@ -67,6 +67,7 @@ public class Pawn extends ChessPiece
         }
     }
     
+    
     public String getType(){return type;}
 
     public boolean getIsEnpassent(){return isEnpassent;}

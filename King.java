@@ -2,6 +2,7 @@
 public class King extends ChessPiece 
 {
     private String type = "King";
+    private boolean castle = false;
 
     public King(int x, int y, ChessBoard board, int colour)
     {
@@ -21,15 +22,84 @@ public class King extends ChessPiece
             highlightSquare(xLocation - 1, yLocation);
             highlightSquare(xLocation + 1, yLocation);
 
+            castle = false;
+
+            System.out.println(move);
             if(move == 0){
-                highlightSquare(xLocation -2, yLocation);
-                highlightSquare(xLocation + 2, yLocation);
+
+                int[][] LQS = {{-1,0},{-2,0},{-3,0}};
+                int[][] LKS = {{-1,0},{-2,0}};
+                int[][] RQS = {{1,0},{2,0},{3,0}};
+                int[][] RKS = {{1,0},{2,0}};
+                
+                int[][] left = (cb.getTurn() == 0) ? LQS : LKS;
+                int[][] right = (cb.getTurn() == 0) ? RKS : RQS;
+
+                if(cb.getSquareAt(0, 7).getPiece() != null && cb.getSquareAt(0, 7).getPiece().getMove() == 0 && cb.getSquareAt(xLocation -1, 7).getPiece() == null){
+                    if(castleCheck(left)){
+                        highlightSquare(xLocation - 1, yLocation);
+                        highlightSquare(xLocation -2, yLocation);
+                        castle = true;
+                    }
+                    
+                }
+                if(cb.getSquareAt(7, 7).getPiece() != null && cb.getSquareAt(7, 7).getPiece().getMove() == 0 && cb.getSquareAt(xLocation +1, 7).getPiece() == null){
+                    if(castleCheck(right)){
+                        highlightSquare(xLocation + 1, yLocation);
+                        highlightSquare(xLocation + 2, yLocation);
+                        castle = true;
+                    }
+                    
+                }
+                
             }
+
+           
         }
         
     }
 
+    private boolean castleCheck(int[][] direction){
+        
+        cb.setActivePiece(this);
+        int m = this.getMove();
+        for(int[] move: direction){
+            int checkFromX = this.getXPosition() + move[0];
+            int checkFromY = this.getYPosition() + move[1];
+            int reverseX = checkFromX - move[0];
+            int reverseY = checkFromY - move[1];
+
+            if( checkFromX > 7 || checkFromX  < 0 || checkFromY  > 7 || checkFromY  < 0){
+                continue;
+            }
+
+            if(cb.getSquareAt(checkFromX,checkFromY).getPiece() != null){
+                return false;
+            }
+
+            if(cb.getTurn() == 1){
+                checkFromX = 7 - checkFromX;
+                checkFromY = 7 - checkFromY;
+                reverseX = 7 - reverseX;
+                reverseY = 7 - reverseY;
+            }
+
+            if(cb.moveActivePiece(checkFromX,checkFromY)){
+                cb.moveKing(this,reverseX,reverseY); 
+            }
+            else{return false;}
+            this.decrementMove();
+
+        }
+        
+        this.setMove(m);
+        return true;
+    }
+
+
     public boolean checkMate(){
+        
+        int m = this.getMove();
         int[][] kingMoves = {
             {-1, -1}, {-1, 0}, {-1, 1},
             {0, -1},          {0, 1},
@@ -37,8 +107,6 @@ public class King extends ChessPiece
         };
 
         cb.setActivePiece(this);
-
-        
 
         for (int[] move : kingMoves) {
             
@@ -87,6 +155,7 @@ public class King extends ChessPiece
             
         }
 
+        this.setMove(m);
         return true;
     }
 
@@ -200,5 +269,7 @@ public class King extends ChessPiece
     }
 
     public String getType(){return type;}
+
+    public boolean canCastle(){return castle;}
 
 }

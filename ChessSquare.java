@@ -48,6 +48,7 @@ public  class ChessSquare extends JButton
         if(selectable){
             
             cb.moveActivePiece(xLocation, yLocation);
+            
             if(piece instanceof Pawn && ((Pawn) piece).getIsEnpassent()){
                 int direction = (cb.getTurn() == 0) ? 1 : -1;
                 int y = yLocation + direction;
@@ -55,6 +56,25 @@ public  class ChessSquare extends JButton
                 int X = (cb.getTurn() == 0) ? xLocation : 7 -xLocation;
                 System.out.println("X: "+xLocation+"Y: "+(yLocation + direction));
                 cb.getSquareAt(X, Y).setPiece(null);
+
+            }
+
+            if(piece instanceof King && ((King) piece).canCastle()){
+                
+                int QS = (cb.getTurn() == 0) ? 2 : 5;
+                int KS = (cb.getTurn() == 0) ? 6 : 1;
+                int y = (cb.getTurn() == 0) ? 7 : 0;
+
+                if(piece.getXPosition() == QS){
+                    int rookX = (cb.getTurn() == 0) ? 0 : 7;
+                    cb.setActivePiece(cb.getSquareAt(rookX,7).getPiece());
+                    cb.moveActivePiece(3,y);
+                }
+                if(piece.getXPosition() == KS){
+                    int rookX = (cb.getTurn() == 0) ? 7 : 0;
+                    cb.setActivePiece(cb.getSquareAt(rookX,7).getPiece());
+                    cb.moveActivePiece(5,y);
+                }
 
             }
 

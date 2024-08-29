@@ -93,10 +93,8 @@ public class ChessBoard extends JFrame implements ActionListener{
 
         int currentX = activePiece.getXPosition();
         int currentY = activePiece.getYPosition();
-    
         int adjustedX = (turn == 1) ? 7 - x : x;
         int adjustedY = (turn == 1) ? 7 - y : y;
-        
         ChessPiece targetPiece = board[adjustedX][adjustedY].getPiece(); 
     
         activePiece.setPosition(adjustedX, adjustedY);
@@ -128,6 +126,7 @@ public class ChessBoard extends JFrame implements ActionListener{
         if (opponentKing.Check()) {
             System.out.println("Check!");
     
+
             if (opponentKing.checkMate()) {
                 System.out.println("CHECKMATE");
 
