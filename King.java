@@ -25,7 +25,7 @@ public class King extends ChessPiece
             castle = false;
 
             System.out.println(move);
-            if(move == 0){
+            if(move == 0 && !Check()){
 
                 int[][] LQS = {{-1,0},{-2,0},{-3,0}};
                 int[][] LKS = {{-1,0},{-2,0}};
@@ -148,6 +148,7 @@ public class King extends ChessPiece
                     else{
                         cb.setBoard(7 - checkFromX, 7 - checkFromY, tp);
                     }
+                    this.setMove(m);
                     return false;
                 }
                 cb.moveKing(this,reverseX,reverseY);

@@ -227,11 +227,13 @@ public class ChessBoard extends JFrame implements ActionListener{
 
     public int getTurn(){return(turn);}
 
+    public boolean getCheck(){return check;}
+
     public ChessPiece getLastPieceMoved(){return lastMovedPiece;}
 
-    public void setActivePiece(ChessPiece c){this.activePiece = c;}
-
     public ChessPiece getActivePiece(){return activePiece;}
+    
+    public void setActivePiece(ChessPiece c){this.activePiece = c;}
 
     public void setBoard(int x, int y, ChessPiece p){board[x][y].setPiece(p);}
     public static void main(String args[])
