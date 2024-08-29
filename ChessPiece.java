@@ -11,6 +11,7 @@ public abstract class ChessPiece {
     protected int move = 0;
 
 
+
     public ChessPiece(int x, int y, ChessBoard board, int colour)
     {
         this.xLocation = x;
@@ -57,9 +58,11 @@ public abstract class ChessPiece {
 
     protected int getColour(){return colour;}
 
-    protected void incrementMove(){this.move ++;}
+    protected void incrementMove(){move ++;}
 
-    protected void decrementMove(){this.move --;}
+    protected void decrementMove(){move --;}
+
+    protected int getMove(){return move;}
 
     protected abstract void pieceClicked();
 

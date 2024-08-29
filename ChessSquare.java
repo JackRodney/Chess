@@ -48,6 +48,16 @@ public  class ChessSquare extends JButton
         if(selectable){
             
             cb.moveActivePiece(xLocation, yLocation);
+            if(piece instanceof Pawn && ((Pawn) piece).getIsEnpassent()){
+                int direction = (cb.getTurn() == 0) ? 1 : -1;
+                int y = yLocation + direction;
+                int Y = (cb.getTurn() == 0) ? y : 7-y;
+                int X = (cb.getTurn() == 0) ? xLocation : 7 -xLocation;
+                System.out.println("X: "+xLocation+"Y: "+(yLocation + direction));
+                cb.getSquareAt(X, Y).setPiece(null);
+
+            }
+
             cb.changeSides();
             cb.clearHighlights();
             
@@ -58,6 +68,8 @@ public  class ChessSquare extends JButton
     public void setImage(String image){this.setIcon(new ImageIcon(image));}
 
     public ChessPiece getPiece(){return this.piece;}
+
+
 
     public void setSelectable(boolean bool){this.selectable = bool;}
 

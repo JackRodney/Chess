@@ -8,6 +8,7 @@ public class ChessBoard extends JFrame implements ActionListener{
     private ChessSquare[][] board;
     private int turn = 0;
     private ChessPiece activePiece;
+    private ChessPiece lastMovedPiece = null;
     private boolean check;
 
     public ChessBoard(){
@@ -106,9 +107,7 @@ public class ChessBoard extends JFrame implements ActionListener{
 
 
         if (activePiece instanceof Pawn && activePiece.getYPosition() == 0) {
-        
             board[adjustedX][adjustedY].setPiece(new Queen(adjustedX, adjustedY, this, activePiece.getColour()));
-    
         }
     
         King myKing = findKing(activePiece.getColour());
@@ -135,6 +134,8 @@ public class ChessBoard extends JFrame implements ActionListener{
             }
         }
         
+        lastMovedPiece = activePiece;
+ 
         return true;
     }
     
@@ -226,6 +227,8 @@ public class ChessBoard extends JFrame implements ActionListener{
     }
 
     public int getTurn(){return(turn);}
+
+    public ChessPiece getLastPieceMoved(){return lastMovedPiece;}
 
     public void setActivePiece(ChessPiece c){this.activePiece = c;}
 
